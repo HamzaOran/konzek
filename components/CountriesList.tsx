@@ -10,6 +10,19 @@ import {
 } from 'react';
 import { useState } from 'react';
 
+type Country = {
+  code: string;
+  name: string;
+  continent: {
+    name: string;
+  };
+  currency: string;
+  emoji: string;
+  languages: { name: string }[];
+  native: string;
+  phone: string;
+};
+
 const GET_COUNTRIES = gql`
   query Query {
     countries {
@@ -38,7 +51,7 @@ function CountriesList() {
 
   if (error) return <p>Error: {error.message}</p>;
 
-  const handleCountryClick = (countryCode: SetStateAction<null>) => {
+  const handleCountryClick = (countryCode: any) => {
     setExpandedCountry(countryCode === expandedCountry ? null : countryCode);
   };
 
@@ -68,69 +81,19 @@ function CountriesList() {
           {filteredCountries.map(
             (country: {
               code: Key | null | undefined;
-              name:
-                | string
-                | number
-                | boolean
-                | ReactElement<any, string | JSXElementConstructor<any>>
-                | Iterable<ReactNode>
-                | ReactPortal
-                | Promise<AwaitedReactNode>
-                | null
-                | undefined;
+              name: string;
+
               continent: {
-                name:
-                  | string
-                  | number
-                  | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
-                  | Iterable<ReactNode>
-                  | ReactPortal
-                  | Promise<AwaitedReactNode>
-                  | null
-                  | undefined;
+                name: string;
               };
-              currency:
-                | string
-                | number
-                | boolean
-                | ReactElement<any, string | JSXElementConstructor<any>>
-                | Iterable<ReactNode>
-                | ReactPortal
-                | Promise<AwaitedReactNode>
-                | null
-                | undefined;
-              emoji:
-                | string
-                | number
-                | boolean
-                | ReactElement<any, string | JSXElementConstructor<any>>
-                | Iterable<ReactNode>
-                | ReactPortal
-                | Promise<AwaitedReactNode>
-                | null
-                | undefined;
+              currency: string;
+
+              emoji: string;
+
               languages: { name: any }[];
-              native:
-                | string
-                | number
-                | boolean
-                | ReactElement<any, string | JSXElementConstructor<any>>
-                | Iterable<ReactNode>
-                | ReactPortal
-                | Promise<AwaitedReactNode>
-                | null
-                | undefined;
-              phone:
-                | string
-                | number
-                | boolean
-                | ReactElement<any, string | JSXElementConstructor<any>>
-                | Iterable<ReactNode>
-                | ReactPortal
-                | Promise<AwaitedReactNode>
-                | null
-                | undefined;
+              native: string;
+
+              phone: string;
             }) => (
               <li key={country.code}>
                 <a
